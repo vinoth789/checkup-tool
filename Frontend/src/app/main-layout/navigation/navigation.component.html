@@ -1,0 +1,83 @@
+<!-- nav -->
+<ng-container *ngIf="isLoggedIn">
+    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-header"
+        style="position: sticky; top: 0px; z-index: 1000; background-color: rgb(28, 63, 82);">
+        <logo class="ml-3">
+            <a class="navbar-brand" href="">
+                <strong class="blue-text">Maturity Evaluation Tool</strong>
+            </a>
+        </logo>
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto"></ul>
+        <!-- Links -->
+
+        <!-- Search form -->
+        <ul class="navbar-nav nav-flex-icons">
+
+            <!-- <li class="nav-item active">
+                <a href="https://www.facebook.com" class="nav-link" target="_blank" mdbWavesEffect>
+                    <mdb-icon fab icon="facebook-f"></mdb-icon>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="https://twitter.com" class="nav-link" target="_blank" mdbWavesEffect>
+                    <mdb-icon fab icon="twitter"></mdb-icon>
+                </a>
+            </li> -->
+            <!-- <li class="nav-item active">
+                <a class="nav-link" href="" target="_blank" mdbWavesEffect>About</a>
+            </li> -->
+            <li class="nav-item active">
+                <div class="nav-link" mdbWavesEffect *ngIf="isLoggedIn && userProfile">{{userProfile.firstName}}
+                    {{userProfile.lastName}} - {{userRole}} <mdb-icon fas icon="user"></mdb-icon>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" (click)="logout()" mdbWavesEffect> Logout <mdb-icon fas icon="power-off">
+                    </mdb-icon> </a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <!--Main Navigation-->
+    <header>
+
+        <!-- Sidebar -->
+        <div class="sidebar-fixed position-fixed">
+            <a class="logo-wrapper waves-effect">
+                <!-- <img src="../../../../assets/img/angular-mdb.png" class="img-fluid" alt="">  -->
+            </a>
+            <div class="list-group list-group-flush">
+
+                <a routerLink="dashboard" routerLinkActive="active"
+                    class="list-group-item list-group-item-action waves-effect" mdbWavesEffect>
+                    <mdb-icon fas icon="chart-pie" class="mr-3"></mdb-icon>Dashboard
+                </a>
+                <a routerLink="company" routerLinkActive="active"
+                    class="list-group-item list-group-item-action waves-effect" mdbWavesEffect>
+                    <mdb-icon fas icon="building" class="mr-3"></mdb-icon>Companies
+                </a>
+
+                <a *ngIf="userRole === 'Admin' || userRole === 'Consultant'" routerLink="users"
+                    routerLinkActive="active" class="list-group-item list-group-item-action waves-effect"
+                    mdbWavesEffect>
+                    <mdb-icon fas icon="user" class="mr-3"></mdb-icon>Manage users
+                </a>
+
+                <a routerLink="survey" routerLinkActive="active"
+                    class="list-group-item list-group-item-action waves-effect" mdbWavesEffect>
+                    <mdb-icon fas icon="flag-checkered" class="mr-3"></mdb-icon>Take survey
+                </a>
+                <a routerLink="surveyResults" routerLinkActive="active"
+                    class="list-group-item list-group-item-action waves-effect" mdbWavesEffect>
+                    <mdb-icon fas icon="exchange-alt" class="mr-3"></mdb-icon>Compare results
+                </a>
+
+            </div>
+        </div>
+        <!-- Sidebar -->
+
+    </header>
+</ng-container>
+<!--Main Navigation-->

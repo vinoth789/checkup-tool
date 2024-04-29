@@ -1,0 +1,137 @@
+﻿<h1 *ngIf="isAddMode">Add Company</h1>
+<h1 *ngIf="!isAddMode">Edit Company</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-row">
+        <div class="form-group col-md-5">
+            <label for="companyName">Company Name</label>
+            <input type="text" formControlName="companyName" class="form-control" mdbInput />
+            <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+                <div *ngIf="f.companyName.errors.required">Company Name is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row justify-content-between">
+        <div class="form-group col-md-5">
+            <label for="Departments">Departments (Default)</label>
+            <button type="button" mdbBtn color="primary" id="addDepartmentBtn"
+                class="waves-light btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#addDepartmentModal"
+                (click)="departmentModal.show()" mdbWavesEffect>
+                Add Department
+            </button>
+            <mat-selection-list #departmentList
+                (selectionChange)="addSelectedItems(departmentList.selectedOptions.selected, 'defaultDepartment')">
+                <mat-list-option *ngFor="let department of departments; let i = index"
+                    [value]="departments[i].departmentName">
+                    {{departments[i].departmentName}}
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+
+        <div class="form-group col-md-5" id="newDepartmentsDiv" style="display:none;">
+            <label for="NewlyAddedDepartments">Company specific departments</label>
+            <mat-selection-list #newlyAddedDepartmentList
+                (selectionChange)="addSelectedItems(newlyAddedDepartmentList.selectedOptions.selected, 'newlyAddedDepartment')">
+                <mat-list-option *ngFor="let newDepartments of addNewDepartmentList; let i = index"
+                    [value]="addNewDepartmentList[i].departmentName">
+                    {{addNewDepartmentList[i].departmentName}}
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div id="departmentListError" style="color:red; font-size: 12pt;"></div>
+    </div>
+
+    <div class="form-row justify-content-between">
+        <div class="form-group col-md-5">
+            <label for="usersInvolved">Users Involved</label>
+            <mat-selection-list #users formControlName="usersInvolved"
+                (selectionChange)="addSelectedItems(users.selectedOptions.selected, 'selectedUsers')">
+                <mat-list-option *ngFor="let users of usersInvolved; let i = index" [value]="usersInvolved[i].id">
+                    {{usersInvolved[i].firstName}} {{usersInvolved[i].lastName}}
+                </mat-list-option>
+            </mat-selection-list>
+            <div id="userListError" style="color:red; font-size: 12pt;">
+            </div>
+        </div>
+        <div class="form-group col-md-5">
+            <label for="NumberOfEmployees">Number of employees</label>
+            <input type="number" formControlName="numberOfEmployees" class="form-control" mdbInput />
+            <label for="TypeOfCompany">Type of company</label>
+            <input type="text" formControlName="typeOfCompany" class="form-control" mdbInput />
+            <label for="OriginOfCompany">origin of company</label>
+            <input type="text" formControlName="originOfCompany" class="form-control" mdbInput />
+            <label for="Latitude">Latitude</label>
+            <input type="text" formControlName="latitude" class="form-control" mdbInput />
+            <label for="Latitude">Longitude</label>
+            <input type="text" formControlName="longitude" class="form-control" mdbInput />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button mdbBtn [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a mdbBtn routerLink="/company" class="btn btn-link">Cancel</a>
+    </div>
+</form>
+
+<div mdbModal #departmentModal="mdb-modal" class="modal fade" id="addDepartmentModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: false}">
+    <div class="modal-dialog " role="document">
+
+        <div class="modal-content">
+            <form [formGroup]="addDepartmentForm" (ngSubmit)="submitAddDepartmentForm()">
+
+                <div class="modal-body">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <input type="text" placeholder="Enter department name" formControlName="newDepartment"
+                                [value]="newDepartmentValue" class="form-control" />
+                            <div id="departmentEmpty" style="color:red; font-size: 9pt;">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <a mdbBtn color="primary" (click)="addDepartmentToList()" size="sm" class="my-0 p">
+                                <mdb-icon fas icon="plus"></mdb-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <mat-list>
+                                <mat-list-item *ngFor="let newDepartment of addNewDepartmentList; let i = index">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <td>{{addNewDepartmentList[i].departmentName}}</td>
+                                                <td><a style="float:right; color:red;"
+                                                        (click)="removeDepartmentFromList(i)" size="sm" class="my-0 p">
+                                                        <mdb-icon fas icon="trash-alt"></mdb-icon>
+                                                    </a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </mat-list-item>
+                            </mat-list>
+                            <div id="departmentListEmpty" style="color:red; font-size: 9pt;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" size="sm" class="waves-light" data-dismiss="modal"
+                        (click)="departmentModal.hide()" id="modalCloseButton" mdbWavesEffect>Close
+                    </button>
+                    <button type="submit" mdbBtn color="primary" id="modalAddButton" size="sm" class="waves-light"
+                        mdbWavesEffect>Add
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

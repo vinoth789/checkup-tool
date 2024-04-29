@@ -1,0 +1,47 @@
+﻿<mdb-card class="mb-4 wow fadeIn">
+
+    <!--Card content-->
+    <mdb-card-body>
+
+        <h4 class="text-center">
+            Users
+        </h4>
+    </mdb-card-body>
+
+</mdb-card>
+
+<a mdbBtn routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">First Name</th>
+            <th style="width: 30%">Last Name</th>
+            <th style="width: 30%">Username</th>
+            <th style="width: 30%">Role</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.role}}</td>
+            <td *ngIf="userRole === 'Admin'" style="white-space: nowrap">
+                <a routerLink="edit/{{user.id}}">
+                    <mdb-icon fas icon="edit" class="mr-3"></mdb-icon>
+                </a>
+                <a (click)="deleteUser(user.id)">
+                    <mdb-icon fas icon="trash-alt" style="color: orangered;" class="mr-3"></mdb-icon>
+                </a>
+            </td>
+            <td style="white-space: nowrap">
+            </td>
+        </tr>
+        <tr *ngIf="!users">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

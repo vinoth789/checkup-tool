@@ -1,0 +1,188 @@
+<section class="mt-lg-5">
+    <!--Grid row-->
+    <div class="row">
+        <!--Grid column-->
+        <div id="wrap" class="col-xl-3 col-md-6 mb-r" *ngFor="let surveyStatus of answeredQuestionsPerAction; let i = index">
+            <!--Card-->
+            <mdb-card cascade="true" class="cascading-admin-card">
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon=""  class="icon-style" style="background: url('../../../../../assets/Field_Of_Action_{{i+1}}.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p style="height: 30px;">{{answeredQuestionsPerAction[i].fieldOfActions.actionName}}</p>
+                        <h4><strong>{{answeredQuestionsPerAction[i].noOfAnsweredQuestions}}/{{answeredQuestionsPerAction[i].fieldOfActions.questions.length}}</strong></h4>
+                    </div>
+                </div>
+                <!--/.Card Data-->
+                <mdb-card-body>
+                    <div class="progress">
+                        <div class="progress-bar" id="dataCollection" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                </mdb-card-body>
+            </mdb-card>
+            <!--/.Card-->
+        </div>
+        <!--Grid column-->
+    </div>
+</section>
+
+
+<!-- <section class="mt-lg-5">
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-r">
+
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <div class="admin-up">
+                    <mdb-icon fas icon="" class="icon-style" style="background: url('../../../../../assets/Data_Collection_and_Processing.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p>Data collection and processing</p>
+                        <h4><strong>{{questionarieMap[0].questionsCompleted}}/{{questionarieMap[0].totalQuestions}}</strong></h4>
+                    </div>
+                </div>
+
+                <mdb-card-body>
+                    <div class="progress">
+                        <div class="progress-bar" id="dataCollection" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                </mdb-card-body>
+
+            </mdb-card>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-r">
+
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <div class="admin-up">
+                    <mdb-icon fas icon="" class="icon-style" style="background: url('../../../../../assets/Assistance_Systems.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p>Assistance systems</p>
+                        <h4><strong>{{questionarieMap[1].questionsCompleted}}/{{questionarieMap[1].totalQuestions}}</strong></h4>
+                    </div>
+                </div>
+
+                <mdb-card-body>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                </mdb-card-body>
+
+            </mdb-card>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-r">
+
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <div class="admin-up">
+                    <mdb-icon fas icon="" class="icon-style" style="background: url('../../../../../assets/Networking_and_Integration.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p>Networking and integration</p>
+                        <h4><strong>{{questionarieMap[2].questionsCompleted}}/{{questionarieMap[2].totalQuestions}}</strong></h4>
+                    </div>
+                </div>
+
+                <mdb-card-body>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </mdb-card-body>
+
+            </mdb-card>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-r">
+
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <div class="admin-up">
+                    <mdb-icon fab icon="" class="icon-style" style="background: url('../../../../../assets/Decentralization_and_service_orientation.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p style="width:150px;">Decentralization and service orientation</p>
+                        <h4 style="margin-top: -17px;"><strong>{{questionarieMap[3].questionsCompleted}}/{{questionarieMap[3].totalQuestions}}</strong></h4>
+                    </div>
+                </div>
+
+                <mdb-card-body>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                </mdb-card-body>
+
+            </mdb-card>
+
+        </div>
+
+    </div>
+</section>
+
+    <section class="mt-lg-5">
+
+        <div class="row justify-content-md-center">
+
+        <div class="col-xl-3 col-md-6 mb-r">
+
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <div class="admin-up">
+                    <mdb-icon fab icon="" class="icon-style" style="background: url('../../../../../assets/Self-organization_and_autonomy.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p>Self organization and autonomy</p>
+                        <h4><strong>{{questionarieMap[4].questionsCompleted}}/{{questionarieMap[4].totalQuestions}}</strong></h4>
+                    </div>
+                </div>
+
+                <mdb-card-body>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                </mdb-card-body>
+
+            </mdb-card>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-r">
+
+
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <div class="admin-up">
+                    <mdb-icon fas icon="" class="icon-style" style="background: url('../../../../../assets/Qualification_of_employees.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p>Qualification of employees</p>
+                        <h4><strong>{{questionarieMap[5].questionsCompleted}}/{{questionarieMap[5].totalQuestions}}</strong></h4>
+                    </div>
+                </div>
+
+                <mdb-card-body>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                </mdb-card-body>
+
+            </mdb-card>
+
+        </div>
+
+    </div>>
+
+</section> -->

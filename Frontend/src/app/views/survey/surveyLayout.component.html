@@ -1,0 +1,129 @@
+﻿<div class="container-fluid">
+    <div class="surveyContainer" id="surveyContainer">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <div class="badge" *ngIf="showQuestion && showQuestion.id <= totalQuestions">
+                    <span>Question {{ showQuestion.id }} of {{ totalQuestions }}</span>
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <div class="badge" *ngIf="isQuestionAnswered"><i style="color: green;"
+                        class="fas fa-check-circle fa-2x"></i></div>
+            </div>
+            <div class="form-group col-md-7">
+                <form [formGroup]="chooseDepartmentForm">
+                    <mat-form-field style="float: right;">
+                        <mat-label>Choose department</mat-label>
+
+                        <mat-select formControlName="department" (selectionChange)="showOnlySelectedDepartment()"
+                            [(value)]="selected" data-width="500px" mdbInput>
+                            <mat-option [value]=-1>All</mat-option>
+                            <mat-option *ngFor="let department of chosenCompany.departments let i = index"
+                                [value]="department.id">
+                                {{department.departmentName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: bold;">{{showQuestion.id}}.</td>
+                            <td>
+                                <div style="font-weight: bold;" id="question">{{showQuestion.surveyQuestion}} </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <mdb-card class="mb-1 wow fadeIn">
+                    <!--Card content-->
+                    <mdb-card-body>
+                        <div *ngFor="let department of chosenCompany.departments">
+                            <div *ngIf="department.id === selectedDepartmentId || selectedDepartmentId === -1 ">
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for=""> {{department.departmentName}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <div class="range"><input id="questionOption{{department.id}}" type="range"
+                                                min="-1" max="5" step="1" value="-1" class="form-control"
+                                                (change)="getAnswer($event, department.id)"
+                                                (oninput)="getAnswer($event, department.id)" /></div>
+                                        <ul class="range-labels">
+                                            <li class="active selected">Not relevant</li>
+                                            <li class="">0</li>
+                                            <li class="">1</li>
+                                            <li class="">2</li>
+                                            <li class="">3</li>
+                                            <li class="">4</li>
+                                            <li class="">5</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="form-group col-md-6 p-5" style="top: 38px;">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>{{showQuestion.option1}} </td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>{{showQuestion.option2}} </td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>{{showQuestion.option3}} </td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>{{showQuestion.option4}} </td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>{{showQuestion.option5}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2-offset-2 prevQuestionNav"
+                *ngIf="showQuestion && showQuestion.id !== totalQuestions && showQuestion.id !== 1 && isPreviousButtonDisabled === false">
+                <button mdbBtn class="waves-light btn btn-sm btn-success mb-2" (click)="navigateToPreviousQuestion()">
+                    Previous question
+                </button>
+            </div>
+            <div class="form-group col-md-2 nextQuestionNav"
+                *ngIf="showQuestion && showQuestion.id !== totalQuestions && isQuestionAnswered === false">
+                <button mdbBtn class="waves-light btn btn-sm btn-success mb-2" (click)="navigateToNextQuestion('add')">
+                    Next question
+                </button>
+            </div>
+            <div class="form-group col-md-2 nextQuestionNav"
+                *ngIf="showQuestion && showQuestion.id !== totalQuestions && isQuestionAnswered === true">
+                <button mdbBtn class="waves-light btn btn-sm btn-success mb-2"
+                    (click)="navigateToNextQuestion('update')">
+                    Update and move
+                </button>
+            </div>
+        </div>
+        <div mdbBtn class="form-group col-md-2"
+            *ngIf="showQuestion && showQuestion.id === totalQuestions">
+            <button mdbBtn class="waves-light btn btn-sm btn-success mb-2" (click)="navigateToNextQuestion('add')">
+                Show Results
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<section class="mt-lg-5">
+    <!--Grid row-->
+    <div class="row">
+        <!--Grid column-->
+        <div id="wrap" class="col-xl-2 col-md-2 mb-r" *ngFor="let surveyStatus of answeredQuestions; let i = index">
+            <a class="surveyStatus" (click)="navigateToAppropriateQuestion(i)">
+            <!--Card-->
+            <mdb-card cascade="true" class="cascading-admin-card">
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon=""  class="icon-style" style="background: url('../../../../../assets/Field_Of_Action_{{i+1}}.png'); background-size: 89px 89px;"></mdb-icon>
+                    <div class="data">
+                        <p style="height: 30px;">{{answeredQuestions[i].fieldOfActions.actionName}}</p>
+                        <h4><strong>{{answeredQuestions[i].questions.length}}/{{answeredQuestions[i].fieldOfActions.questions.length}}</strong></h4>
+                    </div>
+                </div>
+                <!--/.Card Data-->
+            </mdb-card>
+            <!--/.Card-->
+            </a>
+        </div>
+        <!--Grid column-->
+    </div>
+</section>

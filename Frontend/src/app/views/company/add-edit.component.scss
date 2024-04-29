@@ -1,0 +1,26 @@
+.selectpicker {
+    background-color: white;
+    border-width: thin;
+    height: 35px;
+    border-color: lightgray;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 5px;
+}
+
+mat-selection-list {
+    max-height: 310px;
+    overflow: auto;
+    background-color: white;
+    border-width: thin;
+    border-color: lightgray;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 5px;
+  }
+
+#addDepartmentBtn {
+    bottom: 0px;
+    left: 154px;
+    position: relative;
+}

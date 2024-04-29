@@ -1,0 +1,126 @@
+<!-- Heading -->
+<mdb-card class="mb-4 wow fadeIn col-md-offset-4">
+    <!--Card content-->
+    <mdb-card-body class="d-sm-flex justify-content-between">
+
+        <h4 class="mb-sm-0 pt-3">
+            Compare Survey Results
+        </h4>
+        <form [formGroup]="form">
+            <div id="companyListEmptyError" *ngIf="companies && companies.length === 0"
+                style="color:red; font-size: 9pt;"></div>
+            <mat-form-field>
+                <mat-label>Choose company</mat-label>
+                <mat-select formControlName="companies" (selectionChange)="getSelectedCompany()" data-width="500px"
+                    mdbInput>
+                    <mat-option *ngFor="let company of companies; let i = index" [value]="companies[i].id">
+                        {{companies[i].companyName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div id="surveyListEmptyError" *ngIf="displaySurveys && displaySurveys.length === 0"
+                style="color:red; font-size: 9pt;"></div>
+        </form>
+
+    </mdb-card-body>
+</mdb-card>
+
+<div id="surveyResults" style="display: none;">
+    <!-- Heading -->
+    <div class="row wow fadeIn mt-5">
+        <div class="col-md-8 mb-2 offset-md-2">
+            <mdb-card>
+
+                <div class="card-header">Industry 4.0 - Stage model - Barometer</div>
+                <mdb-card-body>
+                    <div id="chartdiv"></div>
+                </mdb-card-body>
+
+            </mdb-card>
+        </div>
+    </div>
+    <!--Grid row-->
+    <div class="row wow fadeIn mt-5">
+
+        <!--Grid column-->
+        <div class="col-lg-8 col-md-10 mb-2 offset-md-2">
+            <!--Card-->
+            <mdb-card>
+                <!-- Card header -->
+                <div class="card-header" style="text-align: center;">Field of Actions and Subject Areas - Overview</div>
+                <!--Card content-->
+                <mdb-card-body>
+
+                    <div style="display: block">
+                        <canvas id="overviewBubbleChart" mdbChart [chartType]="chart6Type">
+                        </canvas>
+                    </div>
+                </mdb-card-body>
+
+            </mdb-card>
+            <!--/.Card-->
+        </div>
+
+    </div>
+
+    <!--Grid row-->
+    <div class="row wow fadeIn mt-5">
+        <!--Grid column-->
+        <div class="col-lg-8 col-md-10 mb-2 offset-md-2">
+            <!--Card-->
+            <mdb-card>
+                <!-- Card header -->
+                <div class="card-header" style="text-align: center;">Field of Actions</div>
+                <!--Card content-->
+                <mdb-card-body>
+                    <div style="display: block">
+                        <canvas id="fieldOfActionChart" mdbChart [chartType]="chart1Type">
+                        </canvas>
+                    </div>
+                </mdb-card-body>
+            </mdb-card>
+            <!--/.Card-->
+        </div>
+    </div>
+
+    <div class="row wow fadeIn mt-5">
+        <!--Grid column-->
+        <div class="col-lg-8 col-md-10 mb-2 offset-md-2">
+            <!--Card-->
+            <mdb-card>
+                <!-- Card header -->
+                <div class="card-header" style="text-align: center;">Subject Areas</div>
+                <!--Card content-->
+                <mdb-card-body>
+                    <div style="display: block">
+                        <canvas id="departmentChart" mdbChart>
+                        </canvas>
+                    </div>
+                </mdb-card-body>
+            </mdb-card>
+            <!--/.Card-->
+        </div>
+        <!--Grid column-->
+    </div>
+    <!--Grid row-->
+
+    <!--Grid row-->
+    <div class="row wow fadeIn mt-5">
+        <!--Grid column-->
+        <div class="col-lg-8 col-md-10 mb-2 offset-md-2">
+            <!--Card-->
+            <mdb-card>
+                <!-- Card header -->
+                <div class="card-header" style="text-align: center;">Radar Chart</div>
+                <!--Card content-->
+                <mdb-card-body>
+                    <div style="display: block">
+                        <canvas mdbChart id="radarChart" [chartType]="chart4Type">
+                        </canvas>
+                    </div>
+                </mdb-card-body>
+            </mdb-card>
+            <!--/.Card-->
+        </div>
+    </div>
+    <!--Grid row-->
+</div>

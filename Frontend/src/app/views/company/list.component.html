@@ -1,0 +1,63 @@
+﻿<mdb-card class="mb-4 wow fadeIn">
+
+    <!--Card content-->
+    <mdb-card-body>
+
+        <h4 class="text-center">
+            Companies
+        </h4>
+    </mdb-card-body>
+
+</mdb-card>
+<div class="row">
+    <div class="col-md-8" *ngIf="role === 'Consultant' || role === 'Admin'">
+        <a mdbBtn routerLink="add" class="btn btn-sm btn-success mb-2">Add Company</a>
+    </div>
+</div>
+
+<mdb-carousel id="companyCarousel" [isControls]="true" class="carousel slide carousel-fade carousel-dark"
+data-mdb-ride="carousel" [interval]="'0'">
+
+    <mdb-carousel-item *ngFor="let companies of slides; let i = index">
+        <!-- <div [ngIf]="i!=4"> -->
+        <div class="row justify-content-md-center">
+            <div class="col-md-3" [ngClass]="{'d-none d-md-block': cardIndex !== 0}"
+                *ngFor="let company of companies; let cardIndex = index">
+                <!--Card-->
+                <mdb-card cascade="true" narrower="true" class="d-flex mb-5">
+
+                    <!--Card image-->
+                    <div class="view overlay hm-white-slight">
+                        <img src="https://mdbootstrap.com/img/Mockups/Horizontal/6-col/pro-profile-page.jpg"
+                            class="img-fluid" alt="">
+                    
+                    </div>
+
+                    <!--Card content-->
+                    <mdb-card-body>
+                        <!--Company name-->
+                        <h4 class="card-title font-bold mb-3"><strong>{{companies[cardIndex].companyName}}</strong></h4>
+                        <!--Departments-->
+                        <ul class="card-text"
+                            *ngFor="let department of companies[cardIndex].departments; let j = index">
+                            <li>{{department.departmentName}}</li>
+                        </ul>
+                    </mdb-card-body>
+
+                    <!--Card footer-->
+                    <div class="card-footer links-light">
+                        <span class="right">
+                            <strong>Users Involved:</strong>
+                            <ul class="card-text" *ngFor="let user of companies[cardIndex].users; let j = index">
+                                <li>{{user.firstName}} {{user.lastName}}</li>
+                            </ul>
+                        </span>
+                    </div>
+
+                </mdb-card>
+                <!--/.Card-->
+            </div>
+        </div>
+        <!-- </div> -->
+    </mdb-carousel-item>
+</mdb-carousel>

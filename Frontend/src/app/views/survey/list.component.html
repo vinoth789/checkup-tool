@@ -1,0 +1,85 @@
+﻿<div class="container">
+    <mdb-card class="mb-4 wow fadeIn">
+        <mdb-card-body>
+            <h4 class="text-center">
+                Take survey
+            </h4>
+        </mdb-card-body>
+    </mdb-card>
+
+    <div class="form-row" style="padding: 20px;">
+        <form [formGroup]="chooseSurveyForm">
+            <div class="form-group col-md-8" style="display: inline-flex;">
+                <mat-form-field>
+                    <mat-label>Choose company</mat-label>
+                    <mat-select formControlName="company" (selectionChange)="getSelectedCompany()" data-width="500px"
+                        mdbInput>
+                        <mat-option *ngFor="let company of companies; let i = index" [value]="companies[i].id">
+                            {{companies[i].companyName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="surveyList" *ngIf="displaySurveys && displaySurveys.length !== 0">
+                    <mat-form-field>
+                        <mat-label>Choose survey</mat-label>
+                        <mat-select formControlName="survey" (selectionChange)="getSelectedSurvey(-1)"
+                            data-width="500px" mdbInput>
+                            <mat-option *ngFor="let survey of displaySurveys; let i = index"
+                                [value]="displaySurveys[i].id">
+                                {{displaySurveys[i].surveyName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-group col-md-2" *ngIf="companies && companies.length !== 0">
+            <button type="button" mdbBtn color="success" id="createSurveyBtn"
+                class="waves-light btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#createSurveyModal"
+                mdbWavesEffect>
+                Create survey <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <div class="form-row justify-content-center">
+            <div id="surveyListEmptyError" style="color:red; font-size: 12pt;"></div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div id="companyListEmptyError" style="color:red; font-size: 12pt;"></div>
+        </div>
+    </div>
+
+    <div id="surveyStatus" *ngIf="displaySurveys && displaySurveys.length != 0 && surveyId !== undefined">
+        <app-stats-card [answeredQuestions]="answeredQuestions" [companyId]="companyId"
+            (actionSpecificQuestionEvent)="navigateToAppropriateQuestion($event)"></app-stats-card>
+        <div class="form-row justify-content-center" style="padding: 20px;">
+        </div>
+    </div>
+
+    <div mdbModal #createSurveyModal="mdb-modal" class="modal fade" id="createSurveyModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: false}">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <form [formGroup]="createSurveyForm" (ngSubmit)="submitCreateSurveyForm()">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <input type="text" placeholder="Enter survey name" formControlName="newSurvey"
+                                    class="form-control" />
+                                <div id="surveyEmpty" style="color:red; font-size: 9pt;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" mdbBtn color="secondary" size="sm" class="waves-light"
+                            data-dismiss="modal" (click)="createSurveyModal.hide()" id="modalCloseButton"
+                            mdbWavesEffect>Close
+                        </button>
+                        <button type="submit" mdbBtn color="primary" id="modalAddButton" size="sm" class="waves-light"
+                            mdbWavesEffect>Add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
